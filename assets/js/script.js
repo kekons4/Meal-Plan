@@ -11,15 +11,20 @@ const addBtn = document.querySelector('#add-btn');
 //user pantry
 const pantryContainer = document.querySelector('#pantry-container');
 
-//dynamically created
+// //dynamically created
 let userItem;
-let pantryItem;
+let pantryItems;
 
-//buttons
+// //buttons
 const clearBtn = document.querySelector('clear-btn');
-const getRecipes = document.querySelector('get-recipes');
+const getRecipes = document.querySelector('#get-recipes');
 
-//nav links - add locations when available
+//API
+const apiBaseUrl = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=";
+const apiKey = "3bf0573f77794a1fbc310965fd52f563";
+const numResults = 5;
+
+// //nav links - add locations when available
 homeLink.addEventListener('click', function() {
     location.pathname = '/Meal-Plan/index.html'
 });
@@ -33,7 +38,7 @@ groceryLink.addEventListener('click', function() {
     location.pathname = '#'
 });
 
-//initialize localStorage for userItems
+// //initialize localStorage for userItems
 const itemArr = JSON.parse(localStorage.getItem('userItem')) || [];
 
 //generate userItem, push to itemArr, set to local Storage. generate pantryItem div w/ userItem and deleteBtn.
@@ -67,5 +72,24 @@ clearBtn.addEventListener('click', function() {
 
 //getRecipes takes user to recipe page (fill in path when available)
 getRecipes.addEventListener('click', function() {
-    location.pathname = '#';
+    // location.pathname = '#';
+    // itemArr = ["chicken", "onion", "garlic"];
+    let queryString = itemArr.join(",+");
+    console.log(queryString);
+
+    fetch(apiBaseUrl + queryString + "&number="+ numResults + "&apiKey=" + apiKey)
+        .then(function(response){
+            if(response.ok){
+                response.json().then(function(data){
+                    // console.log(data);
+                    pantryItems = data;
+                    localStorage.setItem("pantryItems", JSON.stringify(pantryItems));
+                    // Take user to recipes page
+                    location.pathname = '#';
+                })
+            } else {
+                // This is for testing purposes
+                alert("There was an error with API, please try again.";)
+            }
+        })
 });
