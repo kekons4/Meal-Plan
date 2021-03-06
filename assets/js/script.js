@@ -89,7 +89,7 @@ getRecipes.addEventListener('click', function() {
                 })
             } else {
                 // This is for testing purposes
-                alert("There was an error with API, please try again.";)
+                alert("There was an error with API, please try again.");
             }
         })
 });
