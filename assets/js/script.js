@@ -85,7 +85,7 @@ getRecipes.addEventListener('click', function() {
                     pantryItems = data;
                     localStorage.setItem("pantryItems", JSON.stringify(pantryItems));
                     // Take user to recipes page
-                    location.pathname = '#';
+                    location.pathname = './assets/html/recipe-results.html';
                 })
             } else {
                 // This is for testing purposes
