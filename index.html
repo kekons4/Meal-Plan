@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
     <title>Home Page</title>
 </head>
 
@@ -18,29 +18,32 @@
                 style="width: 200px;max-width:100%;height: auto;"></a>
             <h1>Use it or Lose it</h1>
         </div>
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" id="navbar">
             <li class="tab">
-                <a class="tab-titles">Home</a>
+                <a class="tab-titles" id="home">Home</a>
             </li>
             <li class="tab">
-                <a class="tab-titles">Recipes</a>
+                <a class="tab-titles" id="recipes">Recipes</a>
             </li>
             <li class="tab">
-                <a class="tab-titles">My Meals</a>
+                <a class="tab-titles" id="meals">My Meals</a>
             </li>
             <li class="tab">
-                <a class="tab-titles">Grocery List</a>
+                <a class="tab-titles" id="groceries">Grocery List</a>
             </li>
         </ul>
     </header>
     <br/>
     <div class="container">
         <!-- user item input bar -->
-        <input id="list-item" type="text" placeholder="items in my pantry">
+        <input id="user-input" type="text" placeholder="items in my pantry">
+        <button id="add-btn">Add Items</button>
         <br/>
         <!-- empty div for user item input list -->
-        <div id="all-items"></div>
+        <div id="pantry-container"></div>
+        <button id="get-recipes">Get Recipes</button>
+        <button id ="clear-btn">Clear All</button>
   </div>
+  <script src='./assets/js/script.js'></script>
 </body>
-
 </html>

@@ -13,10 +13,10 @@ const pantryContainer = document.querySelector('#pantry-container');
 
 // //dynamically created
 let userItem;
-let pantryItems;
+let pantryItem;
 
 // //buttons
-const clearBtn = document.querySelector('clear-btn');
+const clearBtn = document.querySelector('#clear-btn');
 const getRecipes = document.querySelector('#get-recipes');
 
 //API
@@ -54,10 +54,11 @@ addBtn.addEventListener('click', function(event) {
         pantryContainer.appendChild(pantryItem);
         //create and style deleteBtn
         let deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('btn btn-danger');
+        deleteBtn.className='btn btn-danger';
         deleteBtn.textContent = "X";
-
-        pantryItem.appendChild(itemArr[item].value);
+        let pantryText = document.createElement('p');
+        pantryText.innerHTML=item;
+        pantryItem.appendChild(pantryText);
         pantryItem.appendChild(deleteBtn);
         deleteBtn.addEventListener('click', function() {
             pantryItem.remove();
@@ -81,11 +82,11 @@ getRecipes.addEventListener('click', function() {
         .then(function(response){
             if(response.ok){
                 response.json().then(function(data){
-                    // console.log(data);
-                    pantryItems = data;
-                    localStorage.setItem("pantryItems", JSON.stringify(pantryItems));
+                    console.log(data);
+                    // pantryItems = data;
+                    localStorage.setItem("pantryItems", JSON.stringify(data));
                     // Take user to recipes page
-                    location.pathname = '#';
+                    // location.pathname = '#';
                 })
             } else {
                 // This is for testing purposes
