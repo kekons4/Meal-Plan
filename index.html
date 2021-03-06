@@ -6,16 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css" />
     <title>Home Page</title>
 </head>
 
 <body>
     <header>
-        <div class="jumbotron text-center">
+        <div class="jumbotron text-center px-0">
             <!-- photo pulled from https://unsplash.com/s/photos/cooking-kitchen?orientation=landscape -->
-            <img src="./assets/images/food.jpg" alt="A photo of ingredients"
-                style="width: 200px;max-width:100%;height: auto;"></a>
+            <!-- <img class="img-responsive" src="./assets/images/food.jpg" alt="A photo of ingredients"> -->
             <h1>Use it or Lose it</h1>
         </div>
         <ul class="nav nav-tabs" id="navbar">
@@ -33,17 +36,20 @@
             </li>
         </ul>
     </header>
-    <br/>
-    <div class="container">
-        <!-- user item input bar -->
-        <input id="user-input" type="text" placeholder="items in my pantry">
-        <button id="add-btn">Add Items</button>
-        <br/>
-        <!-- empty div for user item input list -->
-        <div id="pantry-container"></div>
-        <button id="get-recipes">Get Recipes</button>
-        <button id ="clear-btn">Clear All</button>
-  </div>
-  <script src='./assets/js/script.js'></script>
+    <br />
+    <section>
+        <div class="main-container">
+            <!-- user item input bar -->
+            <input id="user-input" type="text" placeholder="items in my pantry">
+            <button id="add-btn">Add Items</button>
+            <br />
+            <!-- empty div for user item input list -->
+            <div id="pantry-container"></div>
+            <button id="get-recipes">Get Recipes</button>
+            <button id="clear-btn">Clear All</button>
+        </div>
+    </section>
+    <script src='./assets/js/script.js'></script>
 </body>
+
 </html>

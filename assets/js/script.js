@@ -58,6 +58,7 @@ addBtn.addEventListener('click', function(event) {
         deleteBtn.textContent = "X";
         let pantryText = document.createElement('p');
         pantryText.innerHTML=item;
+        pantryItem.className = "pantry-item";
         pantryItem.appendChild(pantryText);
         pantryItem.appendChild(deleteBtn);
         deleteBtn.addEventListener('click', function() {
