@@ -41,6 +41,26 @@ groceryLink.addEventListener('click', function() {
 // //initialize localStorage for userItems
 const itemArr = JSON.parse(localStorage.getItem('userItem')) || [];
 
+//builds list from what is currently in local storage
+window.onload = function () {
+    itemArr.forEach(item => {
+        //add pantryItem to pantryContainer
+        pantryItem = document.createElement('div');
+        pantryContainer.appendChild(pantryItem);
+        //create and style deleteBtn
+        let deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn btn-danger';
+        deleteBtn.textContent = "X";
+        let pantryText = document.createElement('p');
+        pantryText.innerHTML = item;
+        pantryItem.appendChild(pantryText);
+        pantryItem.appendChild(deleteBtn);
+        deleteBtn.addEventListener('click', function () {
+            pantryItem.remove();
+        });
+    });
+}
+
 //generate userItem, push to itemArr, set to local Storage. generate pantryItem div w/ userItem and deleteBtn.
 addBtn.addEventListener('click', function(event) {
     event.preventDefault();
@@ -64,11 +84,13 @@ addBtn.addEventListener('click', function(event) {
             pantryItem.remove();
         })
     })
+
 });
 
 //clearBtn removes all pantryItems
 clearBtn.addEventListener('click', function() {
     pantryContainer.innerHTML = '';
+    localStorage.removeItem('userItem');
 });
 
 //getRecipes takes user to recipe page (fill in path when available)
