@@ -14,6 +14,7 @@ const pantryContainer = document.querySelector('#pantry-container');
 // //dynamically created
 let userItem;
 let pantryItem;
+let deleteBtn;
 
 // //buttons
 const clearBtn = document.querySelector('#clear-btn');
@@ -55,36 +56,47 @@ window.onload = function () {
         pantryText.innerHTML = item;
         pantryItem.appendChild(pantryText);
         pantryItem.appendChild(deleteBtn);
+
         deleteBtn.addEventListener('click', function () {
-            pantryItem.remove();
+            //removes item from local storage  
+            let target = itemArr.indexOf(pantryText.innerHTML);
+            itemArr.splice(target, 1);
+            localStorage.setItem('userItem', JSON.stringify(itemArr));
+            //removes item from pantryContainer        
+            pantryText.remove();
+            deleteBtn.remove();
         });
     });
 }
 
 //generate userItem, push to itemArr, set to local Storage. generate pantryItem div w/ userItem and deleteBtn.
-addBtn.addEventListener('click', function(event) {
+addBtn.addEventListener('click', function (event) {
     event.preventDefault();
     userItem = userInput.value;
     itemArr.push(userItem);
     localStorage.setItem('userItem', JSON.stringify(itemArr));
     //creates div for each userItem and adds it to pantryContainer
-    itemArr.forEach(item => {
-        //add pantryItem to pantryContainer
-        pantryItem = document.createElement('div');
-        pantryContainer.appendChild(pantryItem);
-        //create and style deleteBtn
-        let deleteBtn = document.createElement('button');
-        deleteBtn.className='btn btn-danger';
-        deleteBtn.textContent = "X";
-        let pantryText = document.createElement('p');
-        pantryText.innerHTML=item;
-        pantryItem.appendChild(pantryText);
-        pantryItem.appendChild(deleteBtn);
-        deleteBtn.addEventListener('click', function() {
-            pantryItem.remove();
-        })
-    })
+    //add pantryItem to pantryContainer
+    pantryItem = document.createElement('div');
+    pantryContainer.appendChild(pantryItem);
+    //create and style deleteBtn
+    let deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn btn-danger';
+    deleteBtn.textContent = "X";
+    let pantryText = document.createElement('p');
+    pantryText.innerHTML = userItem;
+    pantryItem.appendChild(pantryText);
+    pantryItem.appendChild(deleteBtn);
 
+    deleteBtn.addEventListener('click', function () {
+        //removes item from local storage
+        let target = itemArr.indexOf(pantryText.innerHTML);
+        itemArr.splice(target, 1);
+        localStorage.setItem('userItem', JSON.stringify(itemArr)); 
+        //removes item from pantryContainer       
+        pantryText.remove();
+        deleteBtn.remove();
+    });
 });
 
 //clearBtn removes all pantryItems
