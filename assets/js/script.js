@@ -42,7 +42,6 @@ groceryLink.addEventListener('click', function() {
 // //initialize localStorage for userItems
 const itemArr = JSON.parse(localStorage.getItem('userItem')) || [];
 
-//builds list from what is currently in local storage
 window.onload = function () {
     itemArr.forEach(item => {
         //add pantryItem to pantryContainer
