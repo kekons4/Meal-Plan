@@ -102,11 +102,11 @@ addBtn.addEventListener('click', function (event) {
 clearBtn.addEventListener('click', function() {
     pantryContainer.innerHTML = '';
     localStorage.removeItem('userItem');
-    console.log(itemArr);
+    // console.log(itemArr);
     for (var i = 0; i < itemArr.length; i++) {
         itemArr.pop();
     }
-    console.log(itemArr);
+    // console.log(itemArr);
 });
 
 //getRecipes takes user to recipe page (fill in path when available)
