@@ -10,7 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
     <title>Home Page</title>
 </head>
 
@@ -38,7 +38,18 @@
     </header>
     <br />
     <section>
-    <div class="container"> </div>
+        <h1>Select up to five recipes</h1>
+        <select id="recipe-filters">
+            <option value="recipefilter">Recipe Filters</a>
+            <option value="glutenfree">Gluten Free</a>
+            <option value="vegan">Vegan</a>
+            <option value="dairyfree">Dairy Free</a>
+            <option value="Keto">Keto</a>
+        </select>
+        <div id="recipes-container"></div>
+        <button id="save-btn">Save My Meals</button>
+    </section>
+    <script src='../assets/js/recipe-results-script.js'></script>
 </body>
 
 </html>
