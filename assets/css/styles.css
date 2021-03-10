@@ -57,7 +57,7 @@ section h1{
 }
 .recipe-card{
     margin-top: 50px;
-    border: 2px lightskyblue;
+    border: 2px lightskyblue solid;
     border-radius: 10px;
     padding:10px;
     text-align: center;
