@@ -26,13 +26,17 @@ section{
     justify-content: center;
     align-items: center;
 }
+section h1{
+    float: left;
+    font-size: 3rem;
+}
 .main-container{
     margin-top: 50px;
     border: 2px lightgray solid;
     border-radius: 10px;
     padding:10px;
 }
-#get-recipes, #clear-btn, #save-btn{
+#get-recipes, #clear-btn{
     margin-top: 10px;
 }
 #pantry-container{
@@ -50,4 +54,27 @@ section{
 }
 #list-container{
     border: 1px solid black;
+}
+.recipe-card{
+    margin-top: 50px;
+    border: 2px lightskyblue solid;
+    border-radius: 10px;
+    padding:10px;
+    text-align: center;
+}
+#recipe-filters{
+    float: right;
+}
+.recipe-card img{
+border-radius: 5px;
+border: 1px solid black;
+display:block;
+margin: auto;
+}
+#save-btn{
+    margin-top: 10px;
+    display: block;
+    margin: auto;
+    border-radius: 5px;
+    width: 100%;
 }
