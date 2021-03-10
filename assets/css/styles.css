@@ -49,3 +49,6 @@ section{
 #user-input, #add-btn{
     margin-bottom: 10px;
 }
+#list-container{
+    border: 1px solid black;
+}
