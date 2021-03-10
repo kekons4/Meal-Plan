@@ -8,7 +8,7 @@ const groceryLink = document.querySelector('#groceries')
 
 //recipe filters, and recipe container
 const recipeFilters = $("#recipe-filters");
-const recipeContainer = $("#recipes-container");
+const recipesContainer = $("#recipes-container");
 // save button 
 const saveBtn = $("#save-btn");
 
@@ -27,7 +27,7 @@ $(function() {
     console.log(pantryArr);
     pantryArr.forEach(recipe => {
         // create card object
-        let card = $("<div id='recipes-container'></div>");
+        let card = $("<div></div>");
         card.addClass("recipe-card");
         card.attr("data-id", recipe.id);
         // creates title for card
@@ -41,7 +41,7 @@ $(function() {
         card.append(cardImg);
 
         //append card to container
-        recipeContainer.append(card);
+        recipesContainer.append(card);
     });
 });
 
@@ -51,6 +51,7 @@ recipesContainer.on("click", ".recipe-card", function(event){
     //Prevents the user from adding more than 5 recipes and by accidentally adding the same image value again
     if(cardCount < 6 && $(event.target).attr("data-id") != null){
         let selectedCard = $(event.target);
+        // console.log(selectedCard);
         // if the user selected cards id is not in the userSelected arrat then add it
         // and change its vorder to green color
         if(!userSelected.includes(selectedCard.attr("data-id"))) {
@@ -60,7 +61,7 @@ recipesContainer.on("click", ".recipe-card", function(event){
             selectedCard.css("border-width", "3px");
             //else remove the id from the userSelected array and change th border to red color
         } else {
-            let index = userSelected.indexOf(selected.attr("data-id"));
+            let index = userSelected.indexOf(selectedCard.attr("data-id"));
             userSelected.splice(index, index+1);
             selectedCard.css("border-color", "red");
             selectedCard.css("border-width", "3px");
