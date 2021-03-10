@@ -8,7 +8,7 @@ const groceryLink = document.querySelector('#groceries')
 
 //recipe filters, and recipe container
 const recipeFilters = $("#recipe-filters");
-const recipeContainer = $("#recipe-container");
+const recipeContainer = $("#recipes-container");
 // save button 
 const saveBtn = $("#save-btn");
 
@@ -24,15 +24,16 @@ let cardCount = 0;
 //This functionality automatically generates the fetched api data from spoonacular
 // to create cards to display some of the data to the user
 $(function() {
+    console.log(pantryArr);
     pantryArr.forEach(recipe => {
         // create card object
-        let card = $("<div></div>");
+        let card = $("<div id='recipes-container'></div>");
         card.addClass("recipe-card");
         card.attr("data-id", recipe.id);
         // creates title for card
         let cardTitle = $("<p></p>");
         cardTitle.text(recipe.title);
-        let cardImg = $("img");
+        let cardImg = $("<img>");
         cardImg.attr("src", recipe.image);
 
         //append title and image to card
