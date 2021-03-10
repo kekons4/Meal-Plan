@@ -49,6 +49,23 @@ section{
     margin-bottom: 10px;
 }
 #list-container{
-    border: 1px solid black;
-}
+    display: flex;
+    width: auto;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    flex-basis: 50%vh;
 
+}
+.recipe-card {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
+    flex-basis: 50%vh; 
+}
+.buttons {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
