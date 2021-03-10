@@ -15,6 +15,9 @@ const saveBtn = $("#save-btn");
 //initialize localStorage for pantry items
 const pantryArr = JSON.parse(localStorage.getItem('pantryItems'));
 
+// filtered ids
+let nutritionArr = [];
+
 // recipes the user selected by the user
 let userSelected = [];
 
@@ -44,6 +47,77 @@ $(function() {
         recipesContainer.append(card);
     });
 });
+
+// display filtered list ot DOM
+function displayFilteredRecipes(){
+    // console.log(nutritionArr);
+    // Empty the recipes container for recipes
+    recipesContainer.empty();
+
+    // go through the pantryArr again
+    pantryArr.forEach(recipe => {
+        // check to see if the pantryArr elements have the same id's as the ones in the filtered list
+        nutritionArr.forEach(id => {
+            if(id === recipe.id){
+                // create card object
+                let card = $("<div></div>");
+                card.addClass("recipe-card");
+                card.attr("data-id", recipe.id);
+                // creates title for card
+                let cardTitle = $("<p></p>");
+                cardTitle.text(recipe.title);
+                let cardImg = $("<img>");
+                cardImg.attr("src", recipe.image);
+
+                //append title and image to card
+                card.append(cardTitle);
+                card.append(cardImg);
+
+                //append card to container
+                recipesContainer.append(card);
+            }
+        });
+    });
+}
+
+// grab api data on nutrition of each recipes, filter out based on recipe id
+// and store the recipes id based on vegan, vegetarian, glutenFree, or dairyFree
+function filteredRecipes(recipeIds, filter){
+    recipeIds.forEach(id => {
+        // fetch nutrition data
+        fetch("https://api.spoonacular.com/recipes/"+id+"/information?includeNutrition=true&apiKey=3bf0573f77794a1fbc310965fd52f563")
+            .then(function(response) {
+                if(response.ok){
+                    response.json().then(function(data){
+                        // console.log(data.dairyFree);\
+                        // if vegan push id
+                        if(filter === "vegan"){
+                            if(data.vegan === true) {
+                                nutritionArr.push(data.id);
+                            }
+                            // if vegetarian push id
+                        } else if(filter === "vegetarian"){
+                            if(data.vegetarian === true) {
+                                nutritionArr.push(data.id);
+                            }
+                            // if gluten free push id
+                        } else if(filter === "glutenFree"){
+                            if(data.glutenFree === true) {
+                                nutritionArr.push(data.id);
+                            }
+                            // if dairy free push id
+                        } else if(filter === "dairyFree") {
+                            if(data.dairyFree === true) {
+                                nutritionArr.push(data.id);
+                            }
+                        }
+                        //constantly update the DOM with new recipes
+                        displayFilteredRecipes();
+                    });
+                }
+            })
+    });
+}
 
 //upon clicking on one of the recipe cards, it will add its id to an array called userSelected
 //this will be used later for displaying alot of other information
@@ -80,4 +154,14 @@ saveBtn.on("click", function(event){
     }
 });
 
-//Still need to add filter functionality
+// Handles recipe filter logic
+recipeFilters.on("change", function(event){
+    let filter = $(this).find(':selected').attr('value');
+    let recipeIds = [];
+    pantryArr.forEach(recipe => {
+        recipeIds.push(recipe.id);
+    });
+    nutritionArr = [];
+    // send recipe ids and filter option
+    filteredRecipes(recipeIds, filter);
+});
