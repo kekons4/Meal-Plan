@@ -19,6 +19,9 @@ let checklistItemText;
 
 let index = 0;
 
+// initialize localStorage for userSelectedRecipes
+const recipeArr = JSON.parse(localStorage.getItem('userSelectedRecipes'))  || [];
+
 //initialize localStorage for checklistItems
 const itemArr = JSON.parse(localStorage.getItem('checklistItem')) || [];
 
@@ -33,7 +36,7 @@ $(function () {
 
                 checkListItemText = $("<label/>")
                     .addClass('form-check-label')
-                    .innerHTML(itemArr[i])
+                    .innerHTML(itemArr[index])
             )
         )
     });

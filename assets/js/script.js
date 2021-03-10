@@ -11,12 +11,12 @@ const addBtn = document.querySelector('#add-btn');
 //user pantry
 const pantryContainer = document.querySelector('#pantry-container');
 
-// //dynamically created
+//dynamically created
 let userItem;
 let pantryItem;
 let deleteBtn;
 
-// //buttons
+//buttons
 const clearBtn = document.querySelector('#clear-btn');
 const getRecipes = document.querySelector('#get-recipes');
 
@@ -25,7 +25,7 @@ const apiBaseUrl = "https://api.spoonacular.com/recipes/findByIngredients?ingred
 const apiKey = "3bf0573f77794a1fbc310965fd52f563";
 const numResults = 5;
 
-// //nav links - add locations when available
+//nav links - add locations when available
 homeLink.addEventListener('click', function() {
     location.pathname = '/Meal-Plan/index.html'
 });
@@ -39,7 +39,7 @@ groceryLink.addEventListener('click', function() {
     location.pathname = '#'
 });
 
-// //initialize localStorage for userItems
+//initialize localStorage for userItems
 const itemArr = JSON.parse(localStorage.getItem('userItem')) || [];
 
 window.onload = function () {
