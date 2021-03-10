@@ -26,6 +26,10 @@ section{
     justify-content: center;
     align-items: center;
 }
+section h1{
+    float: left;
+    font-size: 3rem;
+}
 .main-container{
     margin-top: 50px;
     border: 2px lightgray solid;
@@ -50,4 +54,10 @@ section{
 }
 #list-container{
     border: 1px solid black;
+}
+.recipe-card{
+    margin-top: 50px;
+    border: 2px lightskyblue;
+    border-radius: 10px;
+    padding:10px;
 }
