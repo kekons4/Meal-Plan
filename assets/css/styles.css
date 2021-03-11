@@ -53,15 +53,28 @@ section h1{
     margin-bottom: 10px;
 }
 #list-container{
-    border: 1px solid black;
+
+    display: flex;
+    width: auto;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    flex-basis: 50%vh;
+
 }
-.recipe-card{
-    margin-top: 50px;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding:10px;
-    text-align: center;
+.recipe-card {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
+    flex-basis: 50%vh; 
 }
+.buttons {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
 #recipe-filters{
     float: right;
 }
