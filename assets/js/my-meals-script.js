@@ -25,62 +25,95 @@ let deleteBtn;
 // grab the user selected recipes
 const userSelectedRecipes = JSON.parse(localStorage.getItem('userSelectedRecipes'));
 
+//grab pantryArr
 const pantryArr = JSON.parse(localStorage.getItem('pantryItems'));
 
-//build recipe cards from userSelectedRecipes
-jQuery.each(pantryArr, function (index, value) {
-    //get recipe data by ID (only data from userSelectedRecipes)
-    jQuery.each(userSelectedRecipes, function (index, value) {
-        if (pantryArr[index].id === Number.parseInt(userSelectedRecipes[0])) {
-            //build DOM elements
-            //image at top of recipe   
-            const img = pantryArr[index].img
-            recipeImg = $('<img src =' + img + '>')
-                .addClass('card-img-top')
-                .attr('id', 'recipe-image')
+//initialize steps to localStorage
+const stepsArr = JSON.parse(localStorage.getItem('stepsArr')) || [];
 
-            //title of recipe
-            const titleText = pantryArr[index].title
-            recipeTitle = $('<h3></h3>')
-                .addClass('card-title')
-                .attr('id', 'recipe-title')
-                .text(titleText)
-            //ingredients list
-            ingredientsList = $('<ul></ul>')
-                .addClass('list-group')
-                .attr('id', 'ingredients-list')
+//API
+const apiKey = "3bf0573f77794a1fbc310965fd52f563";
 
-            jQuery.each(pantryArr[index].usedIngredients, function (index, value) {
-                const li = $('<li></li')
-                    .addClass('list-group-item')
-                    .text(usedIngredients[index].originalString)
-                ingredientsList.append(li)
-            })
+//get analyed directions for each userSelectedRecipe
+jQuery.each(userSelectedRecipes, function (index, value) {
+    let id = userSelectedRecipes[index];
 
-            //TODO recipeDirections
-            recipeDirections = $('<p></p>')
-                .addClass('card-text')
+    fetch('https://api.spoonacular.com/recipes/' + id + '/analyzedInstructions?apiKey=' + apiKey)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
+                    localStorage.setItem("stepsArr", JSON.stringify(data));
+                })
+            } else {
+                // This is for testing purposes
+                alert("There was an error with API, please try again.");
+            }
+        });
 
-            //deleteBtn
-            deleteBtn = $('<button></button>')
-                .addClass('btn', 'btn-danger')
-                .text('X')
-
-            //recipeBody containing title, ingredients, directions and deleteBtn
-            recipeBody = $('<div></div>')
-                .addClass('card-body')
-                .attr('id', 'recipe-body')
-                .append(recipeTitle, ingredientsList, recipeDirections, deleteBtn)
-
-            //card containing recipe
-            recipeCard = $('<div></div>')
-                .addClass('card')
-                .attr('id', 'recipe-card')
-                .append(recipeImg, recipeBody)
-
-            //append to recipeContainer
-            recipeContainer.append(recipeCard);
-        }
-    })
 })
 
+jQuery.each(pantryArr, function (index, value) {
+    id = pantryArr[index].id.toString()
+    if (userSelectedRecipes.includes(id)) {
+        //title of recipe
+        const titleText = pantryArr[index].title
+        recipeTitle = $('<h3></h3>')
+            .addClass('card-title')
+            .attr('id', 'recipe-title')
+            .text(titleText)
+
+        //image at top of recipe   
+        const img = pantryArr[index].img
+        recipeImg = $('<img src =' + img + '>')
+            .addClass('card-img-top')
+            .attr('id', 'recipe-image')
+
+        //ingredients list
+        ingredientsList = $('<ul></ul>')
+            .addClass('list-group')
+            .attr('id', 'ingredients-list')
+
+        const ingredients = pantryArr[index].usedIngredients
+
+        jQuery.each(ingredients, function (index, value) {
+            const liText = ingredients[index].original;
+            const li = $('<li></li')
+                .addClass('list-group-item')
+                .text(liText)
+            ingredientsList.append(li)
+        })
+
+        //deleteBtn
+        deleteBtn = $('<button></button>')
+            .addClass('btn', 'btn-danger')
+            .text('X')
+
+        //recipeBody containing title, ingredients, directions and deleteBtn
+        recipeBody = $('<div></div>')
+            .addClass('card-body')
+            .attr('id', 'recipe-body')
+            .append(recipeTitle, ingredientsList, deleteBtn)
+
+        //card containing recipe
+        recipeCard = $('<div></div>')
+            .addClass('card')
+            .attr('id', 'recipe-card')
+            .append(recipeImg, recipeBody)
+
+        //append to recipeContainer
+        recipeContainer.append(recipeCard);
+    };
+})
+
+//recipe directions
+jQuery.each(stepsArr, function (index, value) {
+    const steps = stepsArr[index].steps;
+
+    jQuery.each(steps, function (index, value) {
+        recipeDirections = $('<p></p>')
+            .addClass('card-text')
+            .text(steps[index].number + ': ' + steps[index].step)
+
+        recipeBody.append(recipeDirections);
+    });
+})
