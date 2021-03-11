@@ -54,6 +54,7 @@ jQuery.each(pantryArr, function (index, value) {
                 .text(listItems[index])
             })
 
+
             checkBox.on('change', function() {
                 checkBox.each(function() {
                     checkboxValues[this] = this.checked;
