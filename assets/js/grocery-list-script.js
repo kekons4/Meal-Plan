@@ -26,6 +26,9 @@ const userSelectedRecipes = JSON.parse(localStorage.getItem('userSelectedRecipes
 //initialize localStorage for li
 const listItems = JSON.parse(localStorage.getItem('li')) || [];
 
+//initialize localStorage for checkBoxes (to persist checkbox state)
+const checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {};
+
 //build checklistItems for each missedIngredient
 jQuery.each(pantryArr, function (index, value) {
     // this only allows missing ingredients which are from recipes which the user selected are added
@@ -49,6 +52,15 @@ jQuery.each(pantryArr, function (index, value) {
                 checklistItemText = $("<label></label>")
                 .addClass('form-check-label')
                 .text(listItems[index])
+            })
+
+
+            checkBox.on('change', function() {
+                checkBox.each(function() {
+                    checkboxValues[this] = this.checked;
+                    console.log(this.checked)
+                })
+                localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
             })
     
             checklistItem = $("<div><div/>").append(checkBox, checklistItemText);
