@@ -29,6 +29,9 @@ let cardCount = 0;
 // to create cards to display some of the data to the user
 $(function () {
     // console.log(pantryArr);
+    //reset user input from home page
+    localStorage.removeItem("userItem");
+
     pantryArr.forEach(recipe => {
         // create card object
         let card = $("<div></div>");

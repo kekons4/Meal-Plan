@@ -25,11 +25,8 @@ const pantryArr = JSON.parse(localStorage.getItem('pantryItems')) || [];
 const userSelectedRecipes = JSON.parse(localStorage.getItem('userSelectedRecipes'));
 
 //initialize localStorage for li
-const listItems = JSON.parse(localStorage.getItem('li')) || [];
-// if (listItems !== null) {
-//     localStorage.setItem('li', JSON.stringify([]));
-//     listItems = JSON.parse(localStorage.getItem('li'));
-// }
+const listItems = [];
+
 //initialize localStorage for checkBoxes (to persist checkbox state)
 const checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {};
 
@@ -45,7 +42,7 @@ function getNutrition(name) {
         .then(response => {
             if (response.ok) response.json()
                 .then(function (data) {
-                    console.log(name + " calories: " + data.items[0].calories);
+                    console.log(data.items[0]);
                     listItems.push(name + " calories: " + data.items[0].calories);
                     localStorage.setItem("li", JSON.stringify(listItems));
                     // return data.items[0].calories;
@@ -102,7 +99,7 @@ clearBtn.click(function () {
     //need to check if recipes and mymeals can be rebuilt from userItem
     //so far, emptying both listItems and pantryItems is the
     //only way I've found to persist the cleared list
-    listContainer.empty();
+    // listContainer.empty();
     localStorage.removeItem('li');
     localStorage.removeItem('pantryItems')
     listItems = [];
@@ -113,16 +110,18 @@ clearBtn.click(function () {
 
 //getIngredientsBtn populates the list of missing ingredients
 getIngredientsBtn.click(function () {
-    //create DOM elements & append to listContainer
-    checkBox = $("<input/>")
-        .attr('type', 'checkbox', 'id', 'flexCheckDefault')
-        .addClass('form-check-input')
-        .css('padding-right', '10px');
-
+    //create DOM elements & append to listContaine
+    listContainer.empty();
     jQuery.each(listItems, function (index, value) {
+        checkBox = $("<input/>")
+            .attr('type', 'checkbox', 'id', 'flexCheckDefault')
+            .addClass('form-check-input')
+            .css('padding-right', '10px');
         checklistItemText = $("<label></label>")
             .addClass('form-check-label')
             .text(listItems[index])
+        checklistItem = $("<div><div/>").append(checkBox, checklistItemText);
+        listContainer.append(checklistItem);
     })
 
 
@@ -133,9 +132,6 @@ getIngredientsBtn.click(function () {
     //     })
     //     localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
     // })
-
-    checklistItem = $("<div><div/>").append(checkBox, checklistItemText);
-    listContainer.append(checklistItem);
 });
 
 //TODO: when item is checked, persist checked state in localStorage
