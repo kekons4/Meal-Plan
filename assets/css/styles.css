@@ -78,3 +78,7 @@ section h1{
     border-radius: 5px;
     width: 100%;
 }
+p{
+    display: flex;
+    justify-content: center;
+}
