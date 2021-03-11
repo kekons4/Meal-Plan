@@ -177,8 +177,8 @@ saveBtn.on("click", function (event) {
         localStorage.setItem("userSelectedRecipes", JSON.stringify(userSelected));
         document.location = "./grocerylist.html";
     } else {
-        // THIS MUST BE CHANGED TO SOMETHING ELSE
-        alert("You have not selected any recipes!")
+        // display to error message to user saying that they havent selected any recipes
+        $(".main-container").append("<div class='missing-ingredients-error' style='margin-top: 10px'>You have not selected any recipes!</div>");
     }
 });
 
