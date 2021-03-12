@@ -23,20 +23,16 @@
         </div>
         <ul class="nav nav-tabs" id="navbar">
             <li class="tab">
-                <a href="/index.html"
-                class="tab-titles" id="home">Home</a>
+                <a href="../../index.html"class="tab-titles" id="home">Home</a>
             </li>
             <li class="tab">
-                <a href="recipe-results.html" 
-                class="tab-titles" id="recipes">Recipes</a>
+                <a href="./assets/html/recipe-results.html" class="tab-titles" id="recipes">Recipes</a>
             </li>
             <li class="tab">
-                <a href="mymeals.html"
-                class="tab-titles" id="meals">My Meals</a>
+                <a href="./assets/html/mymeals.html" class="tab-titles" id="meals">My Meals</a>
             </li>
             <li class="tab">
-                <a href="grocerylist.html" 
-                class="tab-titles" id="groceries">Grocery List</a>
+                <a href="./assets/html/grocerylist.html" class="tab-titles" id="groceries">Grocery List</a>
             </li>
         </ul>
     </header>
@@ -44,19 +40,21 @@
     <section>
         <h1>Select up to five recipes</h1>
         <div class="main-container">
-        <select id="recipe-filters">
-            <option value="none">None</option>
-            <option value="glutenFree">Gluten Free</option>
-            <option value="vegan">Vegan</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="dairyFree">Dairy Free</option>
-        </select>
-        <div id="recipes-container">
+            <h4>Filter:</h4>
+            <select id="recipe-filters">
+                <option value="none">None</option>
+                <option value="glutenFree">Gluten Free</option>
+                <option value="vegan">Vegan</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="dairyFree">Dairy Free</option>
+            </select>
+            <div class="recipes-container" id="recipes-container"></div>
+            <button id="save-btn">Save My Meals</button>
         </div>
-        <button id="save-btn">Save My Meals</button>
-    </div>
     </section>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
     <script src='../js/recipe-results-script.js'></script>
 </body>
 

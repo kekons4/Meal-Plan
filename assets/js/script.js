@@ -9,12 +9,10 @@ const groceryLink = document.querySelector('#groceries')
 const userInput = document.querySelector('#user-input');
 const addBtn = document.querySelector('#add-btn');
 //user pantry
-const pantryContainer = document.querySelector('#pantry-container');
+const pantryContainer = $('#pantry-container');
 
 //dynamically created
 let userItem;
-let pantryItem;
-let deleteBtn;
 
 //buttons
 const clearBtn = document.querySelector('#clear-btn');
@@ -25,45 +23,30 @@ const apiBaseUrl = "https://api.spoonacular.com/recipes/findByIngredients?ingred
 const apiKey = "3bf0573f77794a1fbc310965fd52f563";
 const numResults = 5;
 
-//nav links - add locations when available
-homeLink.addEventListener('click', function() {
-    location.pathname = '/Meal-Plan/index.html'
-});
-recipesLink.addEventListener('click', function() {
-    location.pathname = '#'
-});
-mealsLink.addEventListener('click', function() {
-    location.pathname = '#'
-});
-groceryLink.addEventListener('click', function() {
-    location.pathname = '#'
-});
-
 //initialize localStorage for userItems
 const itemArr = JSON.parse(localStorage.getItem('userItem')) || [];
 
 window.onload = function () {
     itemArr.forEach(item => {
         //add pantryItem to pantryContainer
-        pantryItem = document.createElement('div');
-        pantryContainer.appendChild(pantryItem);
+        let pantryItem = $("<div class='pantry-item></div>");
+        // pantryContainer.appendChild(pantryItem);
         //create and style deleteBtn
-        let deleteBtn = document.createElement('button');
-        deleteBtn.className = 'btn btn-danger';
-        deleteBtn.textContent = "X";
-        let pantryText = document.createElement('p');
-        pantryText.innerHTML = item;
-        pantryItem.appendChild(pantryText);
-        pantryItem.appendChild(deleteBtn);
+        let deleteBtn = $("<button class='btn btn-danger'></button>");
+        deleteBtn.text("X");
+        let pantryText = $('<p></p>');
+        pantryText.text(item);
+        pantryItem.append(pantryText);
+        pantryItem.append(deleteBtn);
+        pantryContainer.append(pantryItem);
 
-        deleteBtn.addEventListener('click', function () {
+        deleteBtn.on('click', function () {
             //removes item from local storage  
             let target = itemArr.indexOf(pantryText.innerHTML);
             itemArr.splice(target, 1);
             localStorage.setItem('userItem', JSON.stringify(itemArr));
             //removes item from pantryContainer        
-            pantryText.remove();
-            deleteBtn.remove();
+            pantryItem.remove();
         });
     });
 }
@@ -72,34 +55,34 @@ window.onload = function () {
 addBtn.addEventListener('click', function (event) {
     event.preventDefault();
     userItem = userInput.value;
+    // reset the input to be blank
+    userInput.value = "";
     itemArr.push(userItem);
     localStorage.setItem('userItem', JSON.stringify(itemArr));
     //creates div for each userItem and adds it to pantryContainer
     //add pantryItem to pantryContainer
-    pantryItem = document.createElement('div');
-    pantryContainer.appendChild(pantryItem);
+    let pantryItem = $("<div class='pantry-item'></div>");
     //create and style deleteBtn
-    let deleteBtn = document.createElement('button');
-    deleteBtn.className = 'btn btn-danger';
-    deleteBtn.textContent = "X";
-    let pantryText = document.createElement('p');
-    pantryText.innerHTML = userItem;
-    pantryItem.appendChild(pantryText);
-    pantryItem.appendChild(deleteBtn);
+    let deleteBtn = $("<button class='btn btn-danger'></button>");
+    deleteBtn.text("X");
+    let pantryText = $('<p></p>');
+    pantryText.text(userItem);
+    pantryItem.append(pantryText);
+    pantryItem.append(deleteBtn);
+    pantryContainer.append(pantryItem);
 
-    deleteBtn.addEventListener('click', function () {
+    deleteBtn.on('click', function () {
         //removes item from local storage
         let target = itemArr.indexOf(pantryText.innerHTML);
         itemArr.splice(target, 1);
-        localStorage.setItem('userItem', JSON.stringify(itemArr)); 
+        localStorage.setItem('userItem', JSON.stringify(itemArr));
         //removes item from pantryContainer       
-        pantryText.remove();
-        deleteBtn.remove();
+        pantryItem.remove();
     });
 });
 
 //clearBtn removes all pantryItems
-clearBtn.addEventListener('click', function() {
+clearBtn.addEventListener('click', function () {
     pantryContainer.innerHTML = '';
     localStorage.removeItem('userItem');
     // console.log(itemArr);
@@ -110,16 +93,16 @@ clearBtn.addEventListener('click', function() {
 });
 
 //getRecipes takes user to recipe page (fill in path when available)
-getRecipes.addEventListener('click', function() {
+getRecipes.addEventListener('click', function () {
     // location.pathname = '#';
     // itemArr = ["chicken", "onion", "garlic"];
     let queryString = itemArr.join(",+");
     console.log(queryString);
 
-    fetch(apiBaseUrl + queryString + "&number="+ numResults + "&apiKey=" + apiKey)
-        .then(function(response){
-            if(response.ok){
-                response.json().then(function(data){
+    fetch(apiBaseUrl + queryString + "&number=" + numResults + "&apiKey=" + apiKey)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
                     console.log(data);
                     // pantryItems = data;
                     localStorage.setItem("pantryItems", JSON.stringify(data));
