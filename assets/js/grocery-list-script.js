@@ -138,10 +138,10 @@ getIngredientsBtn.click(function () {
 });
 
 //TODO: when item is checked, persist checked state in localStorage
-checkBox.on('change', function () {
-    checkBox.each(function () {
-        checkboxValues[this] = this.checked;
-        console.log(this.checked)
-    })
-    localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
-})
+// checkBox.on('change', function () {
+//     checkBox.each(function () {
+//         checkboxValues[this] = this.checked;
+//         console.log(this.checked)
+//     })
+//     localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
+// })
