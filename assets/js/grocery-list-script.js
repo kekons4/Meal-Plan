@@ -96,10 +96,6 @@ jQuery.each(pantryArr, function (index, value) {
 
 //clearBtn removes all checklistItems
 clearBtn.click(function () {
-    //need to check if recipes and mymeals can be rebuilt from userItem
-    //so far, emptying both listItems and pantryItems is the
-    //only way I've found to persist the cleared list
-    // listContainer.empty();
     localStorage.removeItem('li');
     localStorage.removeItem('pantryItems')
     listItems = [];
@@ -123,15 +119,6 @@ getIngredientsBtn.click(function () {
         checklistItem = $("<div><div/>").append(checkBox, checklistItemText);
         listContainer.append(checklistItem);
     })
-
-
-    // checkBox.on('change', function () {
-    //     checkBox.each(function () {
-    //         checkboxValues[this] = this.checked;
-    //         console.log(this.checked)
-    //     })
-    //     localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
-    // })
 });
 
 //TODO: when item is checked, persist checked state in localStorage
