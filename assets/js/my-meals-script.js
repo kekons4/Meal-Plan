@@ -7,7 +7,7 @@ const mealsLink = $('#meals');
 const groceryLink = $('#groceries');
 
 //recipes container
-const recipeContainer = $('recipe-card');
+const recipeContainer = $('.recipe-card');
 
 //buttons
 const listBtn = $('#go-to-grocery-list');
@@ -63,8 +63,8 @@ jQuery.each(pantryArr, function (index, value) {
             .text(titleText)
 
         //image at top of recipe   
-        const img = pantryArr[index].img
-        recipeImg = $('<img src =' + img + '>')
+        const img = pantryArr[index].image
+        recipeImg = $('<img href =' + img + '>')
             .addClass('card-img-top')
             .attr('id', 'recipe-image')
 
@@ -77,7 +77,7 @@ jQuery.each(pantryArr, function (index, value) {
 
         jQuery.each(ingredients, function (index, value) {
             const liText = ingredients[index].original;
-            const li = $('<li></li')
+            const li = $('<li></li>')
                 .addClass('list-group-item')
                 .text(liText)
             ingredientsList.append(li)
