@@ -14,6 +14,18 @@ and the entire ingredient list for it.
 ![Screenshot_two](/assets/images/screenshot_two.png)
 ##### Screenshot of home page with ingredients entered by user
 
+![Screenshot_three](/assets/images/screenshot_three.png)
+##### Screenshot of recipes page with recipe cards displayed
+
+![Screenshot_four](/assets/images/screenshot_four.png)
+##### Screenshot of recipes page with selected card
+
+![Screenshot_five](/assets/images/screenshot_five.png)
+##### Screenshot of grocery list page with missing ingredients displayed
+
+![Screenshot_six](/assets/images/screenshot_six.png)
+##### Screenshot of my meals page displaying selected recipes with instructions and all ingredients
+
 ## Installation
 
 Clone the repository at https://github.com/kekons4/use-it-or-lose-it.git add load it on
