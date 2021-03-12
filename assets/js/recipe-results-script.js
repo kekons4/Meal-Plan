@@ -28,11 +28,12 @@ let cardCount = 0;
 //This functionality automatically generates the fetched api data from spoonacular
 // to create cards to display some of the data to the user
 $(function () {
-    // console.log(pantryArr);
+    // console.log(pantryArr.results);
     //reset user input from home page
     localStorage.removeItem("userItem");
 
-    pantryArr.forEach(recipe => {
+    pantryArr.results.forEach(recipe => {
+        // console.log(recipe.results);
         // create card object
         let card = $("<div></div>");
         card.addClass("recipe-card");
@@ -63,7 +64,7 @@ $(function () {
 // Resets the recipe container to show all recipes
 function resetDom() {
     recipesContainer.empty();
-    pantryArr.forEach(recipe => {
+    pantryArr.results.forEach(recipe => {
         // create card object
         let card = $("<div></div>");
         card.addClass("recipe-card");
@@ -90,7 +91,7 @@ function displayFilteredRecipes() {
     recipesContainer.empty();
 
     // go through the pantryArr again
-    pantryArr.forEach(recipe => {
+    pantryArr.results.forEach(recipe => {
         // check to see if the pantryArr elements have the same id's as the ones in the filtered list
         nutritionArr.forEach(id => {
             if (id === recipe.id) {
@@ -182,20 +183,20 @@ saveBtn.on("click", function (event) {
     }
 });
 
-// Handles recipe filter logic
-recipeFilters.on("change", function (event) {
-    let filter = $(this).find(':selected').attr('value');
-    // if the filter is selected to Recipe Filter
-    if (filter === "none") {
-        resetDom();
-        // else change the recipes container to display only filtered recipes
-    } else {
-        let recipeIds = [];
-        pantryArr.forEach(recipe => {
-            recipeIds.push(recipe.id);
-        });
-        nutritionArr = [];
-        // send recipe ids and filter option
-        filteredRecipes(recipeIds, filter);
-    }
-});
+// // Handles recipe filter logic
+// recipeFilters.on("change", function (event) {
+//     let filter = $(this).find(':selected').attr('value');
+//     // if the filter is selected to Recipe Filter
+//     if (filter === "none") {
+//         resetDom();
+//         // else change the recipes container to display only filtered recipes
+//     } else {
+//         let recipeIds = [];
+//         pantryArr.results.forEach(recipe => {
+//             recipeIds.push(recipe.id);
+//         });
+//         nutritionArr = [];
+//         // send recipe ids and filter option
+//         filteredRecipes(recipeIds, filter);
+//     }
+// });

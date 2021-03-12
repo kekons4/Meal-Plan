@@ -13,13 +13,16 @@ const pantryContainer = $('#pantry-container');
 
 //dynamically created
 let userItem;
+let filter;
 
 //buttons
 const clearBtn = document.querySelector('#clear-btn');
 const getRecipes = document.querySelector('#get-recipes');
 
+const recipeFilters = $('#recipe-filters');
+
 //API
-const apiBaseUrl = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=";
+const apiBaseUrl = "https://api.spoonacular.com/recipes/complexSearch?query=";
 const apiKey = "3bf0573f77794a1fbc310965fd52f563";
 const numResults = 5;
 
@@ -92,6 +95,12 @@ clearBtn.addEventListener('click', function () {
     // console.log(itemArr);
 });
 
+// Handles recipe filter logic
+recipeFilters.on("change", function (event) {
+    filter = $(this).find(':selected').attr('value');
+    console.log(filter);
+});
+
 //getRecipes takes user to recipe page (fill in path when available)
 getRecipes.addEventListener('click', function () {
     // location.pathname = '#';
@@ -99,7 +108,7 @@ getRecipes.addEventListener('click', function () {
     let queryString = itemArr.join(",+");
     console.log(queryString);
 
-    fetch(apiBaseUrl + queryString + "&number=" + numResults + "&apiKey=" + apiKey)
+    fetch(apiBaseUrl + queryString + "&number=" + numResults + "&fillIngredients=true" + "&diet=" + filter + "&apiKey=" + apiKey)
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
