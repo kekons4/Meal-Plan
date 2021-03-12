@@ -11,7 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css" />
-    <title>Home Page</title>
+    <title>recipe-results: Use-It-Or-Lose-It</title>
 </head>
 
 <body>
@@ -40,18 +40,21 @@
     <section>
         <h1>Select up to five recipes</h1>
         <div class="main-container">
-        <select id="recipe-filters">
-            <option value="none">None</option>
-            <option value="glutenFree">Gluten Free</option>
-            <option value="vegan">Vegan</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="dairyFree">Dairy Free</option>
-        </select>
-        <div id="recipes-container"></div>
-        <button id="save-btn">Save My Meals</button>
-    </div>
+            <h4>Filter:</h4>
+            <select id="recipe-filters">
+                <option value="none">None</option>
+                <option value="glutenFree">Gluten Free</option>
+                <option value="vegan">Vegan</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="dairyFree">Dairy Free</option>
+            </select>
+            <div class="recipes-container" id="recipes-container"></div>
+            <button id="save-btn">Save My Meals</button>
+        </div>
     </section>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
     <script src='../js/recipe-results-script.js'></script>
 </body>
 

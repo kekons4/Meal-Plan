@@ -26,16 +26,16 @@ const apiKey = "3bf0573f77794a1fbc310965fd52f563";
 const numResults = 5;
 
 //nav links - add locations when available
-homeLink.addEventListener('click', function() {
+homeLink.addEventListener('click', function () {
     location.pathname = '/Meal-Plan/index.html'
 });
-recipesLink.addEventListener('click', function() {
+recipesLink.addEventListener('click', function () {
     location.pathname = '#'
 });
-mealsLink.addEventListener('click', function() {
+mealsLink.addEventListener('click', function () {
     location.pathname = '#'
 });
-groceryLink.addEventListener('click', function() {
+groceryLink.addEventListener('click', function () {
     location.pathname = '#'
 });
 
@@ -72,6 +72,8 @@ window.onload = function () {
 addBtn.addEventListener('click', function (event) {
     event.preventDefault();
     userItem = userInput.value;
+    // reset the input to be blank
+    userInput.value = "";
     itemArr.push(userItem);
     localStorage.setItem('userItem', JSON.stringify(itemArr));
     //creates div for each userItem and adds it to pantryContainer
@@ -91,7 +93,7 @@ addBtn.addEventListener('click', function (event) {
         //removes item from local storage
         let target = itemArr.indexOf(pantryText.innerHTML);
         itemArr.splice(target, 1);
-        localStorage.setItem('userItem', JSON.stringify(itemArr)); 
+        localStorage.setItem('userItem', JSON.stringify(itemArr));
         //removes item from pantryContainer       
         pantryText.remove();
         deleteBtn.remove();
@@ -99,7 +101,7 @@ addBtn.addEventListener('click', function (event) {
 });
 
 //clearBtn removes all pantryItems
-clearBtn.addEventListener('click', function() {
+clearBtn.addEventListener('click', function () {
     pantryContainer.innerHTML = '';
     localStorage.removeItem('userItem');
     // console.log(itemArr);
@@ -110,16 +112,16 @@ clearBtn.addEventListener('click', function() {
 });
 
 //getRecipes takes user to recipe page (fill in path when available)
-getRecipes.addEventListener('click', function() {
+getRecipes.addEventListener('click', function () {
     // location.pathname = '#';
     // itemArr = ["chicken", "onion", "garlic"];
     let queryString = itemArr.join(",+");
     console.log(queryString);
 
-    fetch(apiBaseUrl + queryString + "&number="+ numResults + "&apiKey=" + apiKey)
-        .then(function(response){
-            if(response.ok){
-                response.json().then(function(data){
+    fetch(apiBaseUrl + queryString + "&number=" + numResults + "&apiKey=" + apiKey)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (data) {
                     console.log(data);
                     // pantryItems = data;
                     localStorage.setItem("pantryItems", JSON.stringify(data));
