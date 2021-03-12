@@ -32,7 +32,7 @@ const pantryArr = JSON.parse(localStorage.getItem('pantryItems'));
 const apiKey = "3bf0573f77794a1fbc310965fd52f563";
 
 //get analyed directions for each userSelectedRecipe
-jQuery.each(userSelectedRecipes, function (index, value) {
+jQuery.each(userSelectedRecipes, function (index) {
     let id = userSelectedRecipes[index];
 
     fetch('https://api.spoonacular.com/recipes/' + id + '/analyzedInstructions?apiKey=' + apiKey)
@@ -51,12 +51,14 @@ jQuery.each(userSelectedRecipes, function (index, value) {
 
 //initialize steps to localStorage
 const stepsArr = JSON.parse(localStorage.getItem('stepsArr')) || [];
-console.log(stepsArr);
 
-jQuery.each(userSelectedRecipes, function (i, v) {
-    let id = userSelectedRecipes[i].toString();
-    if (pantryArr.includes(id)) {
-        jQuery.each(pantryArr, function (index, value) {
+jQuery.each(userSelectedRecipes, function (i) {
+        jQuery.each(pantryArr, function (index) {
+            let selectedId = userSelectedRecipes[i].toString();
+            console.log(selectedId)
+            let pantryId = pantryArr[index].id.toString();
+            console.log(pantryId);
+            if (pantryId === selectedId) {
             //title of recipe
             const titleText = pantryArr[index].title
             recipeTitle = $('<h3></h3>')
@@ -104,18 +106,18 @@ jQuery.each(userSelectedRecipes, function (i, v) {
 
             //append to recipeContainer
             recipeContainer.append(recipeCard);
+        };
         })
-    };
 })
 
 //recipe directions
-jQuery.each(stepsArr, function (index, value) {
+jQuery.each(stepsArr, function (index) {
     const steps = stepsArr[index].steps;
 
-    jQuery.each(steps, function (index, value) {
+    jQuery.each(steps, function (i) {
         recipeDirections = $('<p></p>')
             .addClass('card-text')
-            .text(steps[index].number + ': ' + steps[index].step)
+            .text(steps[i].number + ': ' + steps[i].step)
 
         $('#recipe-body').append(recipeDirections);
     });
