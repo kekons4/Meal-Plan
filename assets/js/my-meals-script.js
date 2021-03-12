@@ -28,9 +28,6 @@ const userSelectedRecipes = JSON.parse(localStorage.getItem('userSelectedRecipes
 //grab pantryArr
 const pantryArr = JSON.parse(localStorage.getItem('pantryItems'));
 
-//initialize steps to localStorage
-const stepsArr = JSON.parse(localStorage.getItem('stepsArr')) || [];
-
 //API
 const apiKey = "3bf0573f77794a1fbc310965fd52f563";
 
@@ -52,56 +49,62 @@ jQuery.each(userSelectedRecipes, function (index, value) {
 
 })
 
-jQuery.each(pantryArr, function (index, value) {
-    id = pantryArr[index].id.toString()
-    if (userSelectedRecipes.includes(id)) {
-        //title of recipe
-        const titleText = pantryArr[index].title
-        recipeTitle = $('<h3></h3>')
-            .addClass('card-title')
-            .attr('id', 'recipe-title')
-            .text(titleText)
+//initialize steps to localStorage
+const stepsArr = JSON.parse(localStorage.getItem('stepsArr')) || [];
+console.log(stepsArr);
 
-        //image at top of recipe   
-        const img = pantryArr[index].image
-        recipeImg = $('<img href =' + img + '>')
-            .addClass('card-img-top')
-            .attr('id', 'recipe-image')
+jQuery.each(userSelectedRecipes, function (i, v) {
+    let id = userSelectedRecipes[i].toString();
+    if (pantryArr.includes(id)) {
+        jQuery.each(pantryArr, function (index, value) {
+            //title of recipe
+            const titleText = pantryArr[index].title
+            recipeTitle = $('<h3></h3>')
+                .addClass('card-title')
+                .attr('id', 'recipe-title')
+                .text(titleText)
 
-        //ingredients list
-        ingredientsList = $('<ul></ul>')
-            .addClass('list-group')
-            .attr('id', 'ingredients-list')
+            //image at top of recipe   
+            const img = pantryArr[index].image
+            recipeImg = $('<img src =' + img + '>')
+                .addClass('card-img-top')
+                .attr('id', 'recipe-image')
 
-        const ingredients = pantryArr[index].usedIngredients
+            //ingredients list
+            ingredientsList = $('<ul></ul>')
+                .addClass('list-group')
+                .attr('id', 'ingredients-list')
 
-        jQuery.each(ingredients, function (index, value) {
-            const liText = ingredients[index].original;
-            const li = $('<li></li>')
-                .addClass('list-group-item')
-                .text(liText)
-            ingredientsList.append(li)
+            const ingredients = pantryArr[index].usedIngredients
+
+            jQuery.each(ingredients, function (n) {
+                const liText = ingredients[n].original;
+                const li = $('<li></li>')
+                    .addClass('list-group-item')
+                    .text(liText)
+                ingredientsList.append(li)
+            })
+
+            //deleteBtn
+            deleteBtn = $('<button></button>')
+                .addClass('btn', 'btn-danger')
+                .text('X')
+
+            //recipeBody containing title, ingredients, directions and deleteBtn
+            recipeBody = $('<div></div>')
+                .addClass('card-body')
+                .attr('id', 'recipe-body')
+                .append(recipeTitle, ingredientsList, deleteBtn)
+
+            //card containing recipe
+            recipeCard = $('<div></div>')
+                .addClass('card')
+                .attr('id', 'recipe-card')
+                .append(recipeImg, recipeBody)
+
+            //append to recipeContainer
+            recipeContainer.append(recipeCard);
         })
-
-        //deleteBtn
-        deleteBtn = $('<button></button>')
-            .addClass('btn', 'btn-danger')
-            .text('X')
-
-        //recipeBody containing title, ingredients, directions and deleteBtn
-        recipeBody = $('<div></div>')
-            .addClass('card-body')
-            .attr('id', 'recipe-body')
-            .append(recipeTitle, ingredientsList, deleteBtn)
-
-        //card containing recipe
-        recipeCard = $('<div></div>')
-            .addClass('card')
-            .attr('id', 'recipe-card')
-            .append(recipeImg, recipeBody)
-
-        //append to recipeContainer
-        recipeContainer.append(recipeCard);
     };
 })
 
@@ -114,6 +117,6 @@ jQuery.each(stepsArr, function (index, value) {
             .addClass('card-text')
             .text(steps[index].number + ': ' + steps[index].step)
 
-        recipeBody.append(recipeDirections);
+        $('#recipe-body').append(recipeDirections);
     });
 })
