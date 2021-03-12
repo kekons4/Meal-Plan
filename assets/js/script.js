@@ -46,6 +46,7 @@ window.onload = function () {
     itemArr.forEach(item => {
         //add pantryItem to pantryContainer
         pantryItem = document.createElement('div');
+        pantryItem.className = "pantry-item";
         pantryContainer.appendChild(pantryItem);
         //create and style deleteBtn
         let deleteBtn = document.createElement('button');
