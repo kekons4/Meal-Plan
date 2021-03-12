@@ -23,16 +23,16 @@
         </div>
         <ul class="nav nav-tabs" id="navbar">
             <li class="tab">
-                <a href="#index.html"class="tab-titles" id="home">Home</a>
+                <a href="../../index.html"class="tab-titles" id="home">Home</a>
             </li>
             <li class="tab">
-                <a href="#recipe-results.html" class="tab-titles" id="recipes">Recipes</a>
+                <a href="./assets/html/recipe-results.html" class="tab-titles" id="recipes">Recipes</a>
             </li>
             <li class="tab">
-                <a href="#mymeals.html" class="tab-titles" id="meals">My Meals</a>
+                <a href="./assets/html/mymeals.html" class="tab-titles" id="meals">My Meals</a>
             </li>
             <li class="tab">
-                <a href="#grocerylist.html" class="tab-titles" id="groceries">Grocery List</a>
+                <a href="./assets/html/grocerylist.html" class="tab-titles" id="groceries">Grocery List</a>
             </li>
         </ul>
     </header>
@@ -47,6 +47,14 @@
             <br />
             <!-- empty div for user item input list -->
             <div id="pantry-container"></div>
+            <h4>Diet Filter:</h4>
+            <select id="recipe-filters">
+                <option value="none">None</option>
+                <option value="glutenFree">Gluten Free</option>
+                <option value="vegan">Vegan</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="dairyFree">Dairy Free</option>
+            </select>
             <button id="get-recipes">Get Recipes</button>
             <button id="clear-btn">Clear All</button>
         </div>

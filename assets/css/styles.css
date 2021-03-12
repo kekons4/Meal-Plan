@@ -126,3 +126,12 @@ section h1 {
     border-radius: 5px;
     width: 100%;
 }
+
+.missing-ingredients-error {
+    padding: 10px;
+    color: black;
+    background-color: red;
+    opacity: 0.6;
+    border: 2px red solid;
+    border-radius: 10px;
+}

@@ -25,46 +25,99 @@ const pantryArr = JSON.parse(localStorage.getItem('pantryItems')) || [];
 const userSelectedRecipes = JSON.parse(localStorage.getItem('userSelectedRecipes'));
 
 //initialize localStorage for li
-const listItems = [];
+let listItems = [];
 
 //initialize localStorage for checkBoxes (to persist checkbox state)
 const checkboxValues = JSON.parse(localStorage.getItem('checkboxValues')) || {};
 
 // Gets nutrition facts from calorieninja api
-function getNutrition(name) {
-    fetch("https://calorieninjas.p.rapidapi.com/v1/nutrition?query=" + name, {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-key": "9bf9b8d515msh93a0be33b2998b7p184d01jsnb9d8e7719650",
-                "x-rapidapi-host": "calorieninjas.p.rapidapi.com"
-            }
-        })
-        .then(response => {
-            if (response.ok) response.json()
-                .then(function (data) {
-                    console.log(data.items[0]);
-                    listItems.push(name + " calories: " + data.items[0].calories);
-                    localStorage.setItem("li", JSON.stringify(listItems));
-                    // return data.items[0].calories;
-                });
-        })
-        .catch(err => {
-            console.error(err);
-        });
+const getNutrition = async(name) => {
+    const request = await  fetch("https://calorieninjas.p.rapidapi.com/v1/nutrition?query=" + name, {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-key": "9bf9b8d515msh93a0be33b2998b7p184d01jsnb9d8e7719650",
+            "x-rapidapi-host": "calorieninjas.p.rapidapi.com"
+        }
+    });
+
+    const data = await request.json();
+    // console.log(data.items[0].calories);
+    // listItems.push(name + " calories: " + data.items[0].calories);
+    // localStorage.setItem("li", JSON.stringify(listItems));
+    // console.log(listItems);
+    return data;
+
+    // fetch("https://calorieninjas.p.rapidapi.com/v1/nutrition?query=" + name, {
+    //         "method": "GET",
+    //         "headers": {
+    //             "x-rapidapi-key": "9bf9b8d515msh93a0be33b2998b7p184d01jsnb9d8e7719650",
+    //             "x-rapidapi-host": "calorieninjas.p.rapidapi.com"
+    //         }
+    //     })
+    //     .then(response => {
+    //         if (response.ok) response.json()
+    //             .then(function (data) {
+    //                 // console.log(data.items[0]);
+    //                 listItems.push(name + " calories: " + data.items[0].calories);
+    //                 localStorage.setItem("li", JSON.stringify(listItems));
+    //                 // return data.items[0].calories;
+    //             });
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //     });
 }
 
 
 //build checklistItems for each missedIngredient
-jQuery.each(pantryArr, function (index, value) {
+jQuery.each(pantryArr.results, function (index, value) {
     // this only allows missing ingredients which are from recipes which the user selected are added
     jQuery.each(userSelectedRecipes, function (i, v) {
-        if (pantryArr[index].id === Number.parseInt(userSelectedRecipes[i])) {
+        if (pantryArr.results[index].id === Number.parseInt(userSelectedRecipes[i])) {
             //pull missedIngredients from pantryItems (spoonacular api data)
-            const missedIngredients = pantryArr[index].missedIngredients;
+            const missedIngredients = pantryArr.results[index].missedIngredients;
             jQuery.each(missedIngredients, function (ind, value) {
                 let li = missedIngredients[ind].name;
-                getNutrition(li);
+               getNutrition(li).then(data => {
+                // console.log(data.items[0].calories);
+                listItems.push(li + " calories: " + data.items[0].calories);
+                localStorage.setItem("li", JSON.stringify(listItems));
+                
+                //create DOM elements & append to listContainer
+                listContainer.empty();
+                if (listItems.length === 0) {
+                    listContainer.append("<div class='missing-ingredients-error'>Sorry there no missing Ingredients</div>");
+                }
+                jQuery.each(listItems, function (index, value) {
+                    checkBox = $("<input/>")
+                        .attr('type', 'checkbox', 'id', 'flexCheckDefault')
+                        .addClass('form-check-input')
+                        .css('padding-right', '10px');
+                    checklistItemText = $("<label></label>")
+                        .addClass('form-check-label')
+                        .text(listItems[index])
+                    checklistItem = $("<div><div/>").append(checkBox, checklistItemText);
+                    listContainer.append(checklistItem);
+                })
+               });
             })
+
+            //create DOM elements & append to listContainer
+            // listContainer.empty();
+            // if (listItems.length === 0) {
+            //     listContainer.append("<div class='missing-ingredients-error'>Sorry there no missing Ingredients</div>");
+            // }
+            // jQuery.each(listItems, function (index, value) {
+            //     checkBox = $("<input/>")
+            //         .attr('type', 'checkbox', 'id', 'flexCheckDefault')
+            //         .addClass('form-check-input')
+            //         .css('padding-right', '10px');
+            //     checklistItemText = $("<label></label>")
+            //         .addClass('form-check-label')
+            //         .text(listItems[index])
+            //     checklistItem = $("<div><div/>").append(checkBox, checklistItemText);
+            //     listContainer.append(checklistItem);
+            // })
 
             // //create DOM elements & append to listContainer
             // checkBox = $("<input/>")
@@ -96,6 +149,7 @@ jQuery.each(pantryArr, function (index, value) {
 
 //clearBtn removes all checklistItems
 clearBtn.click(function () {
+    listContainer.empty();
     localStorage.removeItem('li');
     localStorage.removeItem('pantryItems')
     listItems = [];
@@ -105,6 +159,7 @@ clearBtn.click(function () {
 })
 
 //getIngredientsBtn populates the list of missing ingredients
+
 getIngredientsBtn.click(function () {
     //create DOM elements & append to listContaine
     listContainer.empty();
@@ -129,3 +184,4 @@ checkBox.on('change', function () {
     })
     localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
 })
+

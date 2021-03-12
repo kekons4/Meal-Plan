@@ -26,6 +26,9 @@ let deleteBtn;
 // grab the user selected recipes
 const userSelectedRecipes = JSON.parse(localStorage.getItem('userSelectedRecipes'));
 
+//initialize steps to localStorage
+let stepsArr = [];
+
 //grab pantryArr
 const pantryArr = JSON.parse(localStorage.getItem('pantryItems'));
 
@@ -42,6 +45,7 @@ jQuery.each(userSelectedRecipes, function (i) {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
+
                     steps = data[0].steps
                     stepsArr.push(steps)
 
@@ -123,6 +127,7 @@ jQuery.each(userSelectedRecipes, function (i) {
         });
 
 })
+
 
 // Removing the recipe off localstorage and DOM
 recipeContainer.on("click", ".btn-danger", function (event) {
