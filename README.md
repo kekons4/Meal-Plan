@@ -24,9 +24,9 @@ API's used: Spoonacular and Calorie Ninja
 ## Credits
 
 Keon Pourboghrat https://github.com/kekons4
-Corrinne Worden
-Janee' Mays
-Martha Potts
+Corrinne Worden https://github.com/CorrinnneW
+Janee' Mays https://github.com/janee-elise-mays
+Martha Potts https://github.com/MarthaPotts
 
 ## License
 
