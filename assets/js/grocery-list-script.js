@@ -149,9 +149,6 @@ jQuery.each(pantryArr.results, function (index, value) {
 
 //clearBtn removes all checklistItems
 clearBtn.click(function () {
-    //need to check if recipes and mymeals can be rebuilt from userItem
-    //so far, emptying both listItems and pantryItems is the
-    //only way I've found to persist the cleared list
     listContainer.empty();
     localStorage.removeItem('li');
     localStorage.removeItem('pantryItems')
@@ -162,32 +159,29 @@ clearBtn.click(function () {
 })
 
 //getIngredientsBtn populates the list of missing ingredients
-// getIngredientsBtn.click(function () {
-//     //create DOM elements & append to listContaine
-//     listContainer.empty();
-//     if (listItems.length === 0) {
-//         listContainer.append("<div class='missing-ingredients-error'>Sorry there no missing Ingredients</div>");
-//     }
-//     jQuery.each(listItems, function (index, value) {
-//         checkBox = $("<input/>")
-//             .attr('type', 'checkbox', 'id', 'flexCheckDefault')
-//             .addClass('form-check-input')
-//             .css('padding-right', '10px');
-//         checklistItemText = $("<label></label>")
-//             .addClass('form-check-label')
-//             .text(listItems[index])
-//         checklistItem = $("<div><div/>").append(checkBox, checklistItemText);
-//         listContainer.append(checklistItem);
-//     })
 
+getIngredientsBtn.click(function () {
+    //create DOM elements & append to listContaine
+    listContainer.empty();
+    jQuery.each(listItems, function (index, value) {
+        checkBox = $("<input/>")
+            .attr('type', 'checkbox', 'id', 'flexCheckDefault')
+            .addClass('form-check-input')
+            .css('padding-right', '10px');
+        checklistItemText = $("<label></label>")
+            .addClass('form-check-label')
+            .text(listItems[index])
+        checklistItem = $("<div><div/>").append(checkBox, checklistItemText);
+        listContainer.append(checklistItem);
+    })
+});
 
-//     // checkBox.on('change', function () {
-//     //     checkBox.each(function () {
-//     //         checkboxValues[this] = this.checked;
-//     //         console.log(this.checked)
-//     //     })
-//     //     localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
-//     // })
-// });
+//TODO: when item is checked, persist checked state in localStorage
+checkBox.on('change', function () {
+    checkBox.each(function () {
+        checkboxValues[this] = this.checked;
+        console.log(this.checked)
+    })
+    localStorage.setItem("checkboxValues", JSON.stringify(checkboxValues));
+})
 
-//TODO: Add X button functionality to missing ingredients
