@@ -10,8 +10,8 @@ const groceryLink = $('#groceries');
 const recipeContainer = $('.recipe-card');
 
 //buttons
-const listBtn = $('#go-to-grocery-list');
-const clearBtn = $('#recipe-clear');
+const listBtn = $('.go-to-grocery-list');
+const clearBtn = $('.recipe-clear');
 
 //dynamically created
 let recipeCard;
@@ -19,6 +19,7 @@ let recipeImg;
 let ingredientsList;
 let recipeBody;
 let recipeTitle;
+let directionsContainer;
 let recipeDirections;
 let deleteBtn;
 
@@ -140,12 +141,20 @@ jQuery.each(userSelectedRecipes, function (index) {
 })
 
 // Removing the recipe off localstorage and DOM
-recipeContainer.on("click", ".btn-danger", function(event) {
+recipeContainer.on("click", ".btn-danger", function (event) {
     let test = $(event.target);
     let id = test.parent().attr('data-id');
     console.log(test.parent());
     test.parent().remove();
     let arr = userSelectedRecipes;
-    arr.splice(arr.indexOf(id), arr.indexOf(id)+1);
+    arr.splice(arr.indexOf(id), arr.indexOf(id) + 1);
     localStorage.setItem("userSelectedRecipes", JSON.stringify(arr));
+})
+
+clearBtn.click(function () {
+    recipeContainer.empty();
+    localStorage.removeItem('userSelectedRecipes')
+    userSelectedRecipes = [];
+    localStorage.setItem('userSelectedRecipes', json.stringify(userSelectedRecipes))
+    location.reload()
 })
