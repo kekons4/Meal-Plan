@@ -86,7 +86,7 @@ addBtn.addEventListener('click', function (event) {
 
 //clearBtn removes all pantryItems
 clearBtn.addEventListener('click', function () {
-    pantryContainer.innerHTML = '';
+    pantryContainer.text("");
     localStorage.removeItem('userItem');
     // console.log(itemArr);
     for (var i = 0; i < itemArr.length; i++) {
@@ -98,7 +98,7 @@ clearBtn.addEventListener('click', function () {
 // Handles recipe filter logic
 recipeFilters.on("change", function (event) {
     filter = $(this).find(':selected').attr('value');
-    console.log(filter);
+    // console.log(filter);
 });
 
 //getRecipes takes user to recipe page (fill in path when available)

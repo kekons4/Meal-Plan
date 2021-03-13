@@ -32,33 +32,39 @@ $(function () {
     //reset user input from home page
     localStorage.removeItem("userItem");
 
-    pantryArr.results.forEach(recipe => {
-        // console.log(recipe.results);
-        // create card object
-        let card = $("<div></div>");
-        card.addClass("recipe-card");
-        card.attr("data-id", recipe.id);
-        // creates title for card
-        let cardTitle = $("<p></p>");
-        cardTitle.text(recipe.title);
-        let cardImg = $("<img>");
-        cardImg.attr("src", recipe.image);
-
-        //append title and image to card
-        card.append(cardTitle);
-        card.append(cardImg);
-
-        //append card to container
-        recipesContainer.append(card);
-        // fetch("https://api.spoonacular.com/recipes/" + recipe.id + "/information?includeNutrition=true&apiKey=3bf0573f77794a1fbc310965fd52f563")
-        //     .then(function (response) {
-        //         if (response.ok) {
-        //             response.json().then(function (data) {
-        //                 nutritionItems.push(data);
-        //             });
-        //         }
-        //     })
-    });
+    // If the search results in zero recipes found
+    if(pantryArr.results.length === 0){
+        recipesContainer.append("<div class='missing-ingredients-error' style='margin-bottom: 10px;'>There was an error in you search try again</div>");
+    // if there were recipes found append them into the DOM
+    } else {
+        pantryArr.results.forEach(recipe => {
+            // console.log(recipe.results);
+            // create card object
+            let card = $("<div></div>");
+            card.addClass("recipe-card");
+            card.attr("data-id", recipe.id);
+            // creates title for card
+            let cardTitle = $("<p></p>");
+            cardTitle.text(recipe.title);
+            let cardImg = $("<img>");
+            cardImg.attr("src", recipe.image);
+    
+            //append title and image to card
+            card.append(cardTitle);
+            card.append(cardImg);
+    
+            //append card to container
+            recipesContainer.append(card);
+            // fetch("https://api.spoonacular.com/recipes/" + recipe.id + "/information?includeNutrition=true&apiKey=3bf0573f77794a1fbc310965fd52f563")
+            //     .then(function (response) {
+            //         if (response.ok) {
+            //             response.json().then(function (data) {
+            //                 nutritionItems.push(data);
+            //             });
+            //         }
+            //     })
+        });
+    }
 });
 
 // Resets the recipe container to show all recipes
