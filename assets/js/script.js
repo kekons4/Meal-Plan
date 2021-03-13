@@ -119,7 +119,7 @@ getRecipes.addEventListener('click', function () {
 
                     // location.pathname = '#';
 
-                    location.pathname = './assets/html/recipe-results.html';
+                    location.pathname = './recipe-results.html';
 
                 })
             } else {
