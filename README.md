@@ -6,6 +6,8 @@ In this project our team created a web application where the user enters in ingr
 From the list of recipes the user can select up to five. After the user has selected their choice they are given the recipe instuctions
 and the entire ingredient list for it.
 
+Live link to Deployed project: https://kekons4.github.io/Use-it-or-lose-it/
+
 ## Screenshots
 
 ![Screenshot_one](/assets/images/screenshot_one.png)
